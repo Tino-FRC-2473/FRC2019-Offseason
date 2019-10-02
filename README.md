@@ -1,4 +1,4 @@
-# FRC 2020 Offseason
+# FRC 2019 Offseason
 
 ## Code Conventions
 We will base our code style off the [Sun Java style guide](https://www.oracle.com/technetwork/java/codeconventions-150003.pdf).
