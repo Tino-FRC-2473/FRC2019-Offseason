@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import frc.robot.Robot;
 
 /**
  * An example subsystem. You can replace me with your own Subsystem.
@@ -33,7 +34,11 @@ public class DriveSubsystem extends Subsystem {
 		backLeftMotor = new CANSparkMax(5, MotorType.kBrushless);
 		backRightMotor = new CANSparkMax(6, MotorType.kBrushless);
 
-		mecanumDrive = new MecanumDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor)
+		mecanumDrive = new MecanumDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
+	}
+
+	public void mecanumDrive() {
+		mecanumDrive.driveCartesian(Robot.oi.getJoystickY(), Robot.oi.getJoystickX(), Robot.oi.getWheel());
 	}
 
 	@Override
