@@ -27,7 +27,7 @@ public class TeleopCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.driveSubsystem.mecanumDrive();
+		Robot.driveSubsystem.mecanumDrive(Robot.oi.getJoystickY(), Robot.oi.getJoystickX(), Robot.oi.getWheel());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
