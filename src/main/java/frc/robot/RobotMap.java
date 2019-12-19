@@ -24,8 +24,8 @@ public class RobotMap {
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
 
-	public static int SPARK_FRONT_LEFT = 3;
-	public static int SPARK_FRONT_RIGHT = 4;
-	public static int SPARK_BACK_LEFT = 5;
-	public static int SPARK_BACK_RIGHT = 6;
+	public static int SPARK_FRONT_LEFT = 5;
+	public static int SPARK_FRONT_RIGHT = 6;
+	public static int SPARK_BACK_LEFT = 3;
+	public static int SPARK_BACK_RIGHT = 4;
 }

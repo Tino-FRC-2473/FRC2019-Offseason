@@ -7,15 +7,25 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
  * An example command. You can replace me with your own command.
  */
-public class TeleopCommand extends Command {
-	public TeleopCommand() {
+public class TriangleAuto extends Command {
+	double dy; 
+	double dx;
+	double init;
+	double rot;
+
+	public TriangleAuto(double dy, double dx) {
+		this.dy = dy; 
+		this.dx = dx; 
+
+		rot = 10;
+		init = Robot.driveSubsystem.getFrontLeftEncoder();
+		
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.driveSubsystem);
 	}
@@ -23,38 +33,22 @@ public class TeleopCommand extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		double vel = 10;
+		Robot.driveSubsystem.driveTicks(vel, -vel, -vel, vel);
+		System.out.println("Called drivevelocity");
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double x = 0;
-		double y = 0;
 
-		double deadband = 0.1;
-
-		if (Math.abs(Robot.oi.getJoystickX()) > deadband) {
-			x = Robot.oi.getJoystickX();
-			double sign = (x < 0) ? -1 : 1;
-			x = Math.pow(Math.abs(x), 1.5);
-			x *= sign;
-		}
-
-		if (Math.abs(Robot.oi.getJoystickY()) > deadband) {
-			y = Robot.oi.getJoystickY();
-			double sign = (y < 0) ? -1 : 1;
-			y = Math.pow(Math.abs(y), 2);
-			y *= sign;
-		}
-
-		Robot.driveSubsystem.mecanumDrive(-y, x, Robot.oi.getJoystickZ());
-		// System.out.println(Robot.oi.getJoystickY() + " " + Robot.oi.getJoystickX() + " " + Robot.oi.getJoystickZ());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
 		return false;
+		// return Math.abs(Robot.driveSubsystem.getFrontLeftEncoder() - rot) < 0.5;
 	}
 
 	// Called once after isFinished returns true

@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
@@ -44,22 +45,31 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 
 	Joystick joystick;
-	Joystick wheel;
+	Joystick joystick2;
+	JoystickButton trigger;
+
+	
+	// Joystick wheel;
 
 	public OI() {
-		joystick = new Joystick(2);
-		wheel = new Joystick(0);
+		joystick = new Joystick(1);
+		joystick2 = new Joystick(4);
+		trigger = new JoystickButton(joystick, 1);
+		// wheel = new Joystick(0);
+
+		joystick.setTwistChannel(3); // CHANGE TO CORRECT CHANNEL
 	}
 
-	public double getWheel() {
-		return wheel.getX();
+	public double getJoystickZ() {
+		// return trigger.get() ? joystick.getTwist() : 0;
+		return joystick.getTwist();
 	}
 	
 	public double getJoystickX() {
-		return joystick.getX();
+		return joystick2.getX();
 	}
 
 	public double getJoystickY() {
-		return joystick.getY();
+		return joystick2.getY();
 	}
 }

@@ -10,7 +10,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import frc.robot.commands.CustomPIDCommand;
 import frc.robot.commands.TeleopCommand;
+import frc.robot.commands.TestMecanumAutoCommand;
+import frc.robot.commands.TriangleAuto;
 import frc.robot.subsystems.DriveSubsystem;
 
 /**
@@ -24,8 +27,6 @@ public class Robot extends TimedRobot {
 	public static DriveSubsystem driveSubsystem = new DriveSubsystem();
 	public static OI oi;
 
-	TeleopCommand teleopCommand;
-
 	// SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	/**
@@ -35,11 +36,11 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		teleopCommand = new TeleopCommand();
+
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());
 		// SmartDashboard.putData("Auto mode", m_chooser);
-		Shuffleboard.getTab("Mecanum").add("Mecanum Drive", driveSubsystem.getMecanumDriveObject());
+		// Shuffleboard.getTab("Mecanum").add("Mecanum Drive", driveSubsystem.getMecanumDriveObject());
 	}
 
 	/**
@@ -96,6 +97,10 @@ public class Robot extends TimedRobot {
 		// if (m_autonomousCommand != null) {
 		// m_autonomousCommand.start();
 		// }
+
+		double dist = 30;
+		new CustomPIDCommand(dist, -dist, -dist, dist).start();
+		// new TriangleAuto(1,1).start();
 	}
 
 	/**
@@ -103,6 +108,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		// Robot.driveSubsystem.printPowers();
 		Scheduler.getInstance().run();
 	}
 
@@ -113,6 +119,7 @@ public class Robot extends TimedRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 
+		new TeleopCommand().start();
 	}
 
 	/**

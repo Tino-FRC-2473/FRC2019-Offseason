@@ -7,15 +7,22 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
  * An example command. You can replace me with your own command.
  */
-public class TeleopCommand extends Command {
-	public TeleopCommand() {
+public class TestMecanumAutoCommand extends Command {
+	double dy = 0.005;
+	double dx = 0.005;
+
+	double yMax = 0.2;
+	double xMax = 0.25;
+
+	double y = yMax / 2;
+	double x = 0;
+	public TestMecanumAutoCommand() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.driveSubsystem);
 	}
@@ -28,26 +35,14 @@ public class TeleopCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double x = 0;
-		double y = 0;
+		Robot.driveSubsystem.mecanumDrive(y, x, 0);
 
-		double deadband = 0.1;
-
-		if (Math.abs(Robot.oi.getJoystickX()) > deadband) {
-			x = Robot.oi.getJoystickX();
-			double sign = (x < 0) ? -1 : 1;
-			x = Math.pow(Math.abs(x), 1.5);
-			x *= sign;
-		}
-
-		if (Math.abs(Robot.oi.getJoystickY()) > deadband) {
-			y = Robot.oi.getJoystickY();
-			double sign = (y < 0) ? -1 : 1;
-			y = Math.pow(Math.abs(y), 2);
-			y *= sign;
-		}
-
-		Robot.driveSubsystem.mecanumDrive(-y, x, Robot.oi.getJoystickZ());
+		y += dy;
+		x += dx;
+		
+		if (y >= yMax || y <= -yMax) dy = -dy;
+		if (x >= xMax || x <= -xMax) dx = -dx;
+		
 		// System.out.println(Robot.oi.getJoystickY() + " " + Robot.oi.getJoystickX() + " " + Robot.oi.getJoystickZ());
 	}
 
